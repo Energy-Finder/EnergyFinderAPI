@@ -1,4 +1,5 @@
-const connection = require("../database/connection");
+const sequelize = require('../../models').sequelize;
+const tbUser = require('../../models').tbUser;
 
 const responseModel = {
     success: false,
@@ -7,29 +8,43 @@ const responseModel = {
 };
 
 module.exports = {
-    async register(req, res) {
-        const response = {...responseModel}
-        const { username, password } = req.body;
+    async create(req, res) {
+        const { username, email, password } = req.body;
+        let response = { ...responseModel };
+        let statusCode = null;
 
-        const [, affectRows] = await connection.query(`
-            INSERT INTO users VALUES (DEFAULT, '${username}', '${password}', NOW(), NOW())
-        `)
-
-        response.success = affectRows > 0
-
-        return res.json(response);
+        sequelize.query(`INSERT INTO tbUser VALUES ('${username}', '${email}', '${password}')`, { model: tbUser }
+        ).then(() => {
+            statusCode = 201;
+            response.success = true;
+        }).catch(err => {
+            statusCode = 500;
+            response.error = err.message;
+        }).finally(() => {
+            return res.status(statusCode).json(response);
+        })
     },
-    
-    async login(req, res) {
-        const response = {...responseModel}
-        const { username, password } = req.body;
 
-        const [, data] = await connection.query(`
-            SELECT * FROM users WHERE username='${username}' AND password='${password}'
-        `);
+    async auth(req, res) {
+        const { email, password } = req.body;
+        let response = { ...responseModel };
+        let statusCode = null;
 
-        console.log(data);
+        sequelize.query(`SELECT * FROM tbUser WHERE userEmail='${email}' AND userPassword='${password}'`, { model: tbUser }
+        ).then(res => {
+            if (res.length == 0){
+                statusCode = 404;
+            } else {
+                statusCode = 200;
+            }
+            response.success = true;
+            response.data = res;
+        }).catch(err => {
+            statusCode = 500;
+            response.error = err;
+        }).finally(() => {
+            return res.status(statusCode).json(response);
+        })
 
-        return res.json(response);
     }
 };
