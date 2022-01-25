@@ -1,6 +1,6 @@
 const sequelize = require('../../models').sequelize;
 const tbUser = require('../../models').tbUser;
-const { validationResult } = require("express-validator");
+const validateRequestFields = require('../validators/validateRequest');
 
 const responseModel = {
     success: false,
@@ -8,23 +8,13 @@ const responseModel = {
     error: []
 };
 
-const validateFields = function (req, res) {
-    const errors = validationResult(req);
-    let response = { ...responseModel };
-
-    if (!errors.isEmpty()) {
-        response.error = errors.array();
-        return res.status(400).json(response);
-    }
-}
-
 module.exports = {
     async create(req, res) {
         const { username, email, password } = req.body;
         let response = { ...responseModel };
         let statusCode = null;
 
-        validateFields(req, res);
+        validateRequestFields(req, res, response);
 
         sequelize.query(`INSERT INTO tbUser VALUES ('${username}', '${email}', '${password}')`, { model: tbUser }
         ).then(() => {
@@ -43,7 +33,7 @@ module.exports = {
         let response = { ...responseModel };
         let statusCode = null;
 
-        validateFields(req, res);
+        validateRequestFields(req, res, response);
 
         sequelize.query(`SELECT * FROM tbUser WHERE userEmail='${email}' AND userPassword='${password}'`, { model: tbUser }
         ).then(res => {
