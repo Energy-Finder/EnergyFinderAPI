@@ -15,9 +15,22 @@
   },
   "production": {
     "username": "bd-ale",
-    "password": "Cosmop@x20042002",
+    "password": "Cosmop@x",
     "database": "bd-energy-finder",
     "host": "bd-ale.database.windows.net",
-    "dialect": "mysql"
+    "dialect": "mssql",
+    "xuse_env_variable": "DATABASE_URL",
+    "dialectOptions": {
+      "options": {
+        "encrypt": true
+      }
+    },
+    "pool": { 
+      "max": 5,
+      "min": 1,
+      "acquire": 5000,
+      "idle": 30000,
+      "connectTimeout": 5000
+    }
   }
 }
