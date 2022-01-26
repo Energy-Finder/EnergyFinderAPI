@@ -12,7 +12,7 @@ module.exports = {
     async create(req, res) {
         const { username, email, password } = req.body;
         let response = { ...responseModel };
-        let statusCode = null;
+        let statusCode = 500;
 
         validateRequestFields(req, res, response);
 
@@ -21,7 +21,6 @@ module.exports = {
             statusCode = 201;
             response.success = true;
         }).catch(err => {
-            statusCode = 500;
             response.error = err.message;
         }).finally(() => {
             return res.status(statusCode).json(response);
@@ -31,7 +30,7 @@ module.exports = {
     async auth(req, res) {
         const { email, password } = req.body;
         let response = { ...responseModel };
-        let statusCode = null;
+        let statusCode = 500;
 
         validateRequestFields(req, res, response);
 
@@ -45,7 +44,6 @@ module.exports = {
             response.success = true;
             response.data = res;
         }).catch(err => {
-            statusCode = 500;
             response.error = err;
         }).finally(() => {
             return res.status(statusCode).json(response);
