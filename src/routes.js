@@ -23,4 +23,6 @@ router.post('/provider', [
     body('kwhMinLimit').isFloat().withMessage(`kwhMinLimit should be float type`),
 ], ProviderController.create);
 
+router.get('/provider', ProviderController.listAll);
+
 module.exports = router;

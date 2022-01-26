@@ -27,4 +27,20 @@ module.exports = {
             return res.status(statusCode).json(response);
         })
     },
+
+    async listAll(req, res) {
+        let response = { ...responseModel };
+        let statusCode = 500;
+        
+        sequelize.query(`SELECT * FROM tbProvider`, { model: tbProvider }
+        ).then(res => {
+            statusCode = 200;
+            response.success = true;
+            response.data = res;
+        }).catch(err => {
+            response.error = err.message;
+        }).finally(() => {
+            return res.status(statusCode).json(response);
+        })
+    },
 };
