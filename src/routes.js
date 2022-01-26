@@ -5,14 +5,14 @@ const UserController = require('./controllers/UserController');
 const ProviderController = require('./controllers/ProviderController');
 
 router.post('/user', [
-    body('username').notEmpty(),
-    body('email').isEmail(),
-    body('password').isLength({ min: 3 })
+    body('username').notEmpty().withMessage(`username cannot be null`),
+    body('email').isEmail().withMessage(`email is invalid`),
+    body('password').isLength({ min: 3 }).withMessage(`password should be greater than 2 characters`)
 ], UserController.create);
 
 router.post('/user/auth', [
-    body('email').isEmail(),
-    body('password').isLength({ min: 3 })
+    body('email').isEmail().withMessage(`email is invalid`),
+    body('password').isLength({ min: 3 }).withMessage(`password should be greater than 2 characters`)
 ], UserController.auth);
 
 router.post('/provider', [
