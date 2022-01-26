@@ -32,6 +32,16 @@ module.exports = (sequelize, DataTypes) => {
 			field: 'providerKwhLimit',
 			type: DataTypes.FLOAT,
 			allowNull: false
+		},
+		providerClientsTotal: {
+			field: 'providerClientsTotal',
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		providerAverageRating: {
+			field: 'providerAverageRating',
+			type: DataTypes.FLOAT,
+			allowNull: false
 		}
 	}, 
 	{
