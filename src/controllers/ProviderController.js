@@ -14,8 +14,9 @@ module.exports = {
         let response = { ...responseModel };
         let statusCode = 500;
 
-        validateRequestFields(req, res, response);
-
+        const isInvalidRequest = validateRequestFields(req, res, response);
+        if (isInvalidRequest) return false;
+        
         sequelize.query(`INSERT INTO tbProvider VALUES ('${name}', '${logo}', '${uf}', ${kwhPrice}, ${kwhMinLimit})`, { model: tbProvider }
         ).then(() => {
             statusCode = 201;

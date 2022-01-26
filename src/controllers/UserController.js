@@ -14,7 +14,8 @@ module.exports = {
         let response = { ...responseModel };
         let statusCode = 500;
 
-        validateRequestFields(req, res, response);
+        const isInvalidRequest = validateRequestFields(req, res, response);
+        if (isInvalidRequest) return false;
 
         sequelize.query(`INSERT INTO tbUser VALUES ('${username}', '${email}', '${password}')`, { model: tbUser }
         ).then(() => {
@@ -32,7 +33,8 @@ module.exports = {
         let response = { ...responseModel };
         let statusCode = 500;
 
-        validateRequestFields(req, res, response);
+        const isInvalidRequest = validateRequestFields(req, res, response);
+        if (isInvalidRequest) return false;
 
         sequelize.query(`SELECT * FROM tbUser WHERE userEmail='${email}' AND userPassword='${password}'`, { model: tbUser }
         ).then(res => {
