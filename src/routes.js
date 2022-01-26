@@ -21,8 +21,12 @@ router.post('/provider', [
     body('uf').isLength({ max: 2 }).withMessage(`uf should be 2 characters`),
     body('kwhPrice').isFloat().withMessage(`kwhPrice should be float type`),
     body('kwhMinLimit').isFloat().withMessage(`kwhMinLimit should be float type`),
+    body('totalClients').isInt().withMessage(`kwhMinLimit should be integer type`),
+    body('averageRating').isFloat().withMessage(`kwhMinLimit should be float type`),
 ], ProviderController.create);
 
-router.get('/provider', ProviderController.listAll);
+router.get('/provider', ProviderController.getAll);
+
+router.get('/provider/:limit', ProviderController.getCompatibleProvider);
 
 module.exports = router;
