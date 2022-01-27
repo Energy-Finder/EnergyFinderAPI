@@ -1,5 +1,6 @@
 const sequelize = require('../../models').sequelize;
 const tbUser = require('../../models').tbUser;
+const jwt = require('jsonwebtoken');
 const validateRequestFields = require('../validators/validateRequest');
 
 const responseModel = {
@@ -38,10 +39,12 @@ module.exports = {
 
         sequelize.query(`SELECT * FROM tbUser WHERE userEmail='${email}' AND userPassword='${password}'`, { model: tbUser }
         ).then(res => {
-            if (res.length == 0){
-                statusCode = 404;
-            } else {
+            if (res.length > 0){
+                const token = jwt.sign( {email: email, password: password }, 'EFCLARK', { expiresIn: 500 })
+                response["auth_token"] = token;
                 statusCode = 200;
+            } else {
+                statusCode = 404;
             }
             response.success = true;
             response.data = res;

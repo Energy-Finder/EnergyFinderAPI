@@ -1,8 +1,17 @@
 const router = require('express').Router();
 const { body, param } = require('express-validator');
+const jwt = require('jsonwebtoken');
 
 const UserController = require('./controllers/UserController');
 const ProviderController = require('./controllers/ProviderController');
+
+const verifyJWT = function (req, res, next) {
+    const token = req.headers['x-access-token'];
+    jwt.verify(token, 'EFCLARK', (err, decoded) => {
+        if(err) return res.status(401).json({error: "missed auth token in request"}).end();
+        next();
+    })
+}
 
 router.post('/user', [
     body('username').notEmpty().withMessage('username cannot be null'),
@@ -36,8 +45,8 @@ router.put('/provider/:id', [
     body('averageRating').isFloat().withMessage('kwhMinLimit should be float type'),
 ], ProviderController.update);
 
-router.get('/provider', ProviderController.getAll);
+router.get('/provider', verifyJWT, ProviderController.getAll);
 
-router.get('/provider/:limit', ProviderController.getCompatibleProvider);
+router.get('/provider/:limit', verifyJWT, ProviderController.getCompatibleProvider);
 
 module.exports = router;
