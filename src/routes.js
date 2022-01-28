@@ -19,9 +19,9 @@ router.post('/user', [
     body('password').isLength({ min: 3 }).withMessage('password should be greater than 2 characters')
 ], UserController.create);
 
-router.post('/user/auth', [
-    body('email').isEmail().withMessage('email is invalid'),
-    body('password').isLength({ min: 3 }).withMessage('password should be greater than 2 characters')
+router.get('/user/auth/:email/:password', [
+    param('email').isEmail().withMessage('email is invalid'),
+    param('password').isLength({ min: 3 }).withMessage('password should be greater than 2 characters')
 ], UserController.auth);
 
 router.post('/provider', [

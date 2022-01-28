@@ -30,7 +30,7 @@ module.exports = {
     },
 
     async auth(req, res) {
-        const { email, password } = req.body;
+        const { email, password } = req.params;
         let response = { ...responseModel };
         let statusCode = 500;
 

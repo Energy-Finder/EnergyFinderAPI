@@ -4,7 +4,7 @@ app.use(express.json());
 
 const protocol = process.env.PROTOCOL || "http";
 const ip = require('ip').address();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 const routes = require('./routes');
 app.use(routes);
