@@ -125,6 +125,12 @@ PUT /provider/:id
 ```http
 GET /provider
 ```
+Para listar os fornecedores é necessário informar um token de autenticação através dos headers da requisição:
+
+```javascript
+   "x-access-token": "seu-token"
+```
+Caso ainda não possua um **token**, autentique-se pelo endpoint: ``/user/auth/:email/:password``. Ele será **informado na resposta da requisição**.
 
 ## Listando fornecedores por limite mínimo de kWh
 
@@ -136,12 +142,7 @@ GET /provider/:limit
 | :--- | :--- | :--- |
 | `limit` | `string` | **Obrigatório**. Limite mínimo de kWh. |
 
-Para listar fornecedores por kWh, é necessário informar um token de autenticação através dos headers da requisição:
-
-```javascript
-   "x-access-token": "seu-token"
-```
-Caso ainda não possua um **token**, autentique-se pelo endpoint: ``/user/auth/:email/:password``. Ele será **informado na resposta da requisição**.
+Para listar fornecedores por kWh também é necessário informar o token de autenticação. Siga os passos já informados ;)
 
 ## Response
 
