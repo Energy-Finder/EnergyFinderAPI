@@ -142,7 +142,7 @@ GET /provider/:limit
 | :--- | :--- | :--- |
 | `limit` | `string` | **Obrigatório**. Limite mínimo de kWh. |
 
-Para listar fornecedores por kWh também é necessário informar o token de autenticação. Siga os passos já informados ;)
+Para listar fornecedores por kWh também é necessário informar o **token de autenticação**. Siga os passos já informados ;)
 
 ## Response
 
@@ -176,6 +176,6 @@ A EnergyFinderAPI retorna os seguintes status code:
 
 ## Rodando testes
 
-Para rodar os testes de integração, apenas execute o comando: 
+Para rodar os **testes de integração**, apenas execute o comando: 
 
       $ npm test
