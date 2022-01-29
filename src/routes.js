@@ -8,7 +8,7 @@ const ProviderController = require('./controllers/ProviderController');
 const verifyJWT = function (req, res, next) {
     const token = req.headers['x-access-token'];
     jwt.verify(token, 'EFCLARK', (err, decoded) => {
-        if(err) return res.status(401).json({error: "missed auth token in request"}).end();
+        if(err) return res.status(401).json({error: "invalid auth token"}).end();
         next();
     })
 }
