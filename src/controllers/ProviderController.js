@@ -74,7 +74,7 @@ module.exports = {
     },
 
     async getCompatibleProvider(req, res) {
-        const query = `SELECT * FROM tbProvider WHERE providerKwhLimit >= ${req.params.limit}`;
+        const query = `SELECT * FROM tbProvider WHERE providerKwhLimit <= ${req.params.limit}`;
         get(req, res, query);
     }
 };
