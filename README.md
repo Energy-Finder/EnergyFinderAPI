@@ -20,7 +20,7 @@ A API será iniciada em: http://localhost:3001
 
 ## Requisições
 
-Caso prefira, faça o download da **EnergyFinder Collection** e importe em seu API client de preferência (Insomnia, Postman, etc). Ela já contém todas as **requisições pré montadas** ;)
+Caso prefira, importe a **EnergyFinder Collection** em seu API client de preferência (Insomnia, Postman, etc). Ela está na pasta ``src/utils`` e já contém todas as **requisições pré montadas** ;)
 
 # Endpoints da API
 
