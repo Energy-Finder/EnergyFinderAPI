@@ -54,6 +54,5 @@ module.exports = {
         }).finally(() => {
             return res.status(statusCode).json(response);
         })
-
     }
 };

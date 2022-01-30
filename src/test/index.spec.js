@@ -172,6 +172,3 @@ describe('get an unique provider', () => {
         expect(res.statusCode).toEqual(401)
     })
 })
-
-
-
